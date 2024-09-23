@@ -23,7 +23,6 @@ function SideNavBottomSection({ onFileCreate, totalFiles }: any) {
       icon: Flag,
       path: "",
     },
-    ,
   ];
   const [fileInput, setFileInput] = useState("");
   return (
