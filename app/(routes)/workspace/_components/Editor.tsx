@@ -72,7 +72,7 @@ function Editor({
           },
         },
         list: {
-          class: List,
+          class: List as any,
           inlineToolbar: true,
           config: {
             defaultStyle: "unordered",
