@@ -21,7 +21,7 @@ const SideNav = () => {
     activeTeam && getFiles();
   }, [activeTeam]);
 
-  const onFileCreate = (fileName: string) => {
+  const onFileCreate = (fileName: any) => {
     createFile({
       fileName: fileName,
       createdBy: user?.email,

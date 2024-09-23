@@ -4,8 +4,8 @@ import { mutation, query } from "./_generated/server";
 export const createFile = mutation({
   args: {
     fileName: v.string(),
-    teamId: v.string(),
-    createdBy: v.string(),
+    teamId: v.any(),
+    createdBy: v.any(),
     archive: v.boolean(),
     document: v.string(),
     whiteboard: v.string(),
@@ -18,7 +18,7 @@ export const createFile = mutation({
 
 export const getFiles = query({
   args: {
-    teamId: v.string(),
+    teamId: v.any(),
   },
   handler: async (ctx, args) => {
     const result = ctx.db
