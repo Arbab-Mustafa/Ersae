@@ -1,3 +1,3 @@
 export default {
-  MAX_FREE_FILE: 4,
+  MAX_FREE_FILE: 7,
 };
