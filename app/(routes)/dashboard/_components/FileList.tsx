@@ -3,7 +3,8 @@ import moment from "moment";
 import React, { useContext, useState, useEffect } from "react";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import Image from "next/image";
-import { Archive, MoreHorizontal } from "lucide-react";
+import { Crosshair, CrossIcon, MoreHorizontal } from "lucide-react";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,6 +14,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useRouter } from "next/navigation";
+import { useConvex } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { toast } from "sonner";
 
 export interface FILE {
   archieve: boolean;
@@ -30,6 +34,28 @@ const FileList = () => {
   const [fileList, setFileList] = useState<any>();
   const { user }: any = useKindeBrowserClient();
   const router = useRouter();
+
+  const convex = useConvex();
+
+  const handleDeleteFile = async (fileID: any) => {
+    try {
+      // Check if the ID is valid
+      if (!fileID) {
+        throw new Error("Invalid file ID");
+      }
+
+      // Call the mutation with the file ID
+      const result = await convex.mutation(api.files.deleteFile, {
+        _id: fileID, // Ensure this is a valid string ID
+      });
+
+      toast("if UI does not updates then refresh Page");
+      return;
+    } catch (error) {
+      toast("error while deleting");
+      throw error;
+    }
+  };
 
   useEffect(() => {
     fileList_ && setFileList(fileList_);
@@ -64,20 +90,37 @@ const FileList = () => {
               <tr
                 className="odd:bg-gray-50  cursor-pointer hover:bg-gray-100"
                 key={index}
-                onClick={() => {
-                  router.push("/workspace/" + file._id);
-                }}
               >
-                <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                <td
+                  className="whitespace-nowrap px-4 py-2 font-medium text-gray-900"
+                  onClick={() => {
+                    router.push("/workspace/" + file._id);
+                  }}
+                >
                   {file.fileName}
                 </td>
-                <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                <td
+                  className="whitespace-nowrap px-4 py-2 text-gray-700"
+                  onClick={() => {
+                    router.push("/workspace/" + file._id);
+                  }}
+                >
                   {moment(file._creationTime).format("DD MM YYYY")}
                 </td>
-                <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                <td
+                  className="whitespace-nowrap px-4 py-2 text-gray-700"
+                  onClick={() => {
+                    router.push("/workspace/" + file._id);
+                  }}
+                >
                   {moment(file._creationTime).format("DD-MM-YYYY")}
                 </td>
-                <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                <td
+                  className="whitespace-nowrap px-4 py-2 text-gray-700"
+                  onClick={() => {
+                    router.push("/workspace/" + file._id);
+                  }}
+                >
                   <Image
                     className="rounded-full"
                     src={user?.picture}
@@ -92,9 +135,12 @@ const FileList = () => {
                       <MoreHorizontal className="w-4 h-4 cursor-pointer" />
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
-                      <DropdownMenuItem className="flex gap-2">
+                      <DropdownMenuItem
+                        className="flex gap-2"
+                        onClick={() => handleDeleteFile(file._id)}
+                      >
                         {" "}
-                        <Archive className="w-4 h-4" /> Archieve
+                        Delete  
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
