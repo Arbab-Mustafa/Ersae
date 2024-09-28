@@ -64,8 +64,8 @@ const SideNaveTopSection = ({ user, setActiveTeamInfo }: any) => {
         <Image src="/logo-1.png" alt="logo" width={40} height={40} />
         <Popover>
           <PopoverTrigger>
-            <h2 className="flex gap-3 item-center justify-center  font-blod text-[17px]">
-              {activeTeam?.teamName} <ChevronDown />{" "}
+            <h2 className="flex gap-3 item-center justify-center  font-blod text-[12px]  md:text-[17px]">
+              {activeTeam?.teamName} <ChevronDown className="w-4 h-4" />{" "}
             </h2>
           </PopoverTrigger>
           <PopoverContent className="ml-7 p-4">

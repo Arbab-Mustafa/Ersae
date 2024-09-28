@@ -140,7 +140,7 @@ const FileList = () => {
                         onClick={() => handleDeleteFile(file._id)}
                       >
                         {" "}
-                        Delete  
+                        Delete
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
